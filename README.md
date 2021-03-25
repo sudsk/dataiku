@@ -5,7 +5,6 @@
   - Setup a CentOS 7 
   - you select the right Service Account
   - you set the access scope to “read + write” for the Storage API
-  - Create firewall rules
 • Install and configure Docker CE
 ```
 	$ sudo yum install -y yum-utils
@@ -79,12 +78,47 @@ $ dataiku-dss-8.0.1/installer.sh -d /home/dssuser/data -p 10000
 *    sudo -i "/home/dssuser/install/dataiku-dss-8.0.1/scripts/install/install-boot.sh" "/home/dssuser/data" dssuser
 ***************************************************************
 	
-# Configure boot-time startup, using the command shown by the previous step
+## Configure boot-time startup, using the command shown by the previous step
 $ sudo -i "/home/dssuser/install/dataiku-dss-8.0.1/scripts/install/install-boot.sh" "/home/dssuser/data" dssuser
 
-# Manually start DSS, using the command shown by the installer step
+## Manually start DSS, using the command shown by the installer step
 $ /home/dssuser/data/bin/dss start
+Waiting for DSS supervisor to start ...
+backend                          STARTING  
+ipython                          STARTING  
+nginx                            STARTING  
+DSS started, pid=2393
+Waiting for DSS backend to start ........
 
-# Connect to Data Science Studio by opening the following URL in a web browser:
+## Connect to Data Science Studio by opening the following URL in a web browser:
 #    http://HOSTNAME:10000
-# Initial credentials : username = "admin" / password = "admin"
+  - Create firewall rules
+## Initial credentials : username = "admin" / password = "admin"
+
+# Create a sample project (Dataiku TShirts)  and check that you can build the flow
+Click on "+ NEW PROJECT" -> "Sample projects" -> "Create a project from a sample" -> "Dataiku TShirts".
+
+In the Flow tab, click on Flow Actions -> Build all
+
+# Define a DSS connection to GCS
+
+ > Check point : In the TShirts project, change the connection of the managed datasets to the new GCS connection
+
+# Connect this DSS instance to a GKE cluster. It is recommended to use the GKE plugin to allow DSS  to create/attach a GKE cluster (Managed GKE clusters)
+
+	      > Check point : In the TShirt project, create a simple Python recipe and run it in a container
+
+# Expose DSS on the standard HTTPS port instead of HTTP
+
+# Setup your DSS instance so it can run Spark on GKE and interact with GCS (managed Spark on K8S recommended)
+
+ > Check point : In the TShirt project, change the execution engine of the visual recipes to Spark and run it the GKE cluster
+
+# Activate user isolation on DSS (UIF) and configure adjust the spark configuration accordingly. Note this last part is more advanced and may require additional time.
+
+
+
+
+
+
+

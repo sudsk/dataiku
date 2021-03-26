@@ -32,40 +32,47 @@ sudo yum install -y kubectl
 sudo adduser dssuser ## Password = dataiku123#
 sudo usermod -aG google-sudoers dssuser
 ```
-## Install DSS
+• Install DSS
 ```
 mkdir install 
- mkdir data
- ```
+mkdir data
+```
 • Download DSS, together with the “generic-hadoop3” standalone Hadoop libraries and standalone Spark binaries.
 ```
 sudo yum install -y wget
+cd install
 wget https://downloads.dataiku.com/public/studio/8.0.1/dataiku-dss-8.0.1.tar.gz
 wget https://downloads.dataiku.com/public/studio/8.0.1/dataiku-dss-hadoop-standalone-libs-generic-hadoop3-8.0.1.tar.gz
 wget https://downloads.dataiku.com/public/studio/8.0.1/dataiku-dss-spark-standalone-8.0.1-2.4.5-generic-hadoop3.tar.gz
 ```
-• Install DSS, see Installing and setting up
-• Build base container-exec and Spark images, see Initial setup
-# Start from the home directory of user account "dssuser"
-# which will be used to run the Data Science Studio
-# We will install DSS using data directory: /home/dssuser/data
+
+• Start from the home directory of user account "dssuser" which will be used to run the Data Science Studio
+• We will install DSS using data directory: /home/dssuser/data
+```
 $ pwd
-/home/dssuser
-$ cd install
+/home/dssuser/install
 $ ls -l
--rw-rw-r--.  1 dssuser dssuser 222634590 Jul 30  2020 dataiku-dss-8.0.1.tar.gz
+-rw-rw-r--.  1 dssuser dssuser 252634590 Jul 30  2020 dataiku-dss-8.0.1.tar.gz
 -rw-rw-r--.  1 dssuser dssuser 222634590 Jul 30  2020 dataiku-dss-hadoop-standalone-libs-generic-hadoop3-8.0.1.tar.gz
 -rw-rw-r--.  1 dssuser dssuser 410899130 Jul 30  2020 dataiku-dss-spark-standalone-8.0.1-2.4.5-generic-hadoop3.tar.gz
-# Unpack distribution kit
+```
+• Unpack distribution kit
+```
 $ tar xzf dataiku-dss-8.0.1.tar.gz
-# Run installer, with data directory $HOME/data and base port 10000
-# This fails because of missing system dependencies
+```
+• Run installer, with data directory $HOME/data and base port 10000
+• This fails because of missing system dependencies
+```
 $ dataiku-dss-8.0.1/installer.sh -d /home/dssuser/data -p 10000
+```
 
-# Install dependencies with elevated privileges, using the command shown by the previous step
+•  Install dependencies with elevated privileges, using the command shown by the previous step
+```
 $ sudo -i "/home/dssuser/install/dataiku-dss-8.0.1/scripts/install/install-deps.sh"
+```
 
-# Rerun installer script, which will succeed this time
+• Rerun installer script, which will succeed this time
+```
 $ dataiku-dss-8.0.1/installer.sh -d /home/dssuser/data -p 10000
 
 ***************************************************************
@@ -77,11 +84,14 @@ $ dataiku-dss-8.0.1/installer.sh -d /home/dssuser/data -p 10000
 * You can configure Dataiku DSS to start automatically at server boot with:
 *    sudo -i "/home/dssuser/install/dataiku-dss-8.0.1/scripts/install/install-boot.sh" "/home/dssuser/data" dssuser
 ***************************************************************
-	
-## Configure boot-time startup, using the command shown by the previous step
+```
+• Configure boot-time startup, using the command shown by the previous step
+```
 $ sudo -i "/home/dssuser/install/dataiku-dss-8.0.1/scripts/install/install-boot.sh" "/home/dssuser/data" dssuser
+```
 
-## Manually start DSS, using the command shown by the installer step
+• Manually start DSS, using the command shown by the installer step
+```
 $ /home/dssuser/data/bin/dss start
 Waiting for DSS supervisor to start ...
 backend                          STARTING  
@@ -89,11 +99,12 @@ ipython                          STARTING
 nginx                            STARTING  
 DSS started, pid=2393
 Waiting for DSS backend to start ........
+```
+• Connect to Data Science Studio by opening the following URL in a web browser:   http://HOSTNAME:10000
 
-## Connect to Data Science Studio by opening the following URL in a web browser:
-#    http://HOSTNAME:10000
-  - Create firewall rules
-## Initial credentials : username = "admin" / password = "admin"
+• Create firewall rules
+
+• Initial credentials : username = "admin" / password = "admin"
 
 # Create a sample project (Dataiku TShirts)  and check that you can build the flow
 Click on "+ NEW PROJECT" -> "Sample projects" -> "Create a project from a sample" -> "Dataiku TShirts".

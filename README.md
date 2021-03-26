@@ -103,6 +103,15 @@ In the Flow tab, click on Flow Actions -> Build all
 # Define a DSS connection to GCS
 
  > Check point : In the TShirts project, change the connection of the managed datasets to the new GCS connection
+Create a new GCS connection
+Name - dataiku-gcs
+Private Key - paste contents of JSON key
+Service account e-mail - service account email
+Bucket - dataiku-tshirts-gcs
+
+change the connection of the managed datasets to the new GCS connection
+Open flow
+Select any managed dataset -> Change connection -> GCS (dataiku-gcs)
 
 # Connect this DSS instance to a GKE cluster. It is recommended to use the GKE plugin to allow DSS  to create/attach a GKE cluster (Managed GKE clusters)
 

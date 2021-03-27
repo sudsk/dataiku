@@ -128,6 +128,13 @@ Select any managed dataset -> Change connection -> GCS (dataiku-gcs)
 
 	      > Check point : In the TShirt project, create a simple Python recipe and run it in a container
 
+• Install the GKE plugin from Store
+To use Google Kubernetes Engine (GKE), begin by installing the “GKE clusters” plugin from the Plugins store in Dataiku DSS. For more details, see the instructions for installing plugins.
+• Build the base image
+```
+./bin/dssadmin build-base-image --type container-exec
+```
+
 # Expose DSS on the standard HTTPS port instead of HTTP
 
 # Setup your DSS instance so it can run Spark on GKE and interact with GCS (managed Spark on K8S recommended)
